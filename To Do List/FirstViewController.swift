@@ -38,6 +38,11 @@ class FirstViewController: UIViewController, UITableViewDelegate {
         cell.textLabel?.text = todoList[indexPath.row]
         return cell
     }
+    
+    override func viewDidAppear(animated: Bool) {
+    
+        todoListTable.reloadData()
+    }
 
 
 }
