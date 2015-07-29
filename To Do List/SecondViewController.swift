@@ -10,12 +10,14 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
-    @IBOutlet weak var item: UITextField!
+    @IBOutlet var item: UITextField!
     
     @IBAction func addItem(sender: AnyObject) {
         todoList.append(item.text)
         
         item.text = ""
+        
+        NSUserDefaults.standardUserDefaults().setObject(todoList, forKey: "todoList")
     }
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,6 +18,10 @@ class FirstViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("todoList") != nil {
+            todoList = NSUserDefaults.standardUserDefaults().objectForKey("todoList") as! [String]
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,6 +41,15 @@ class FirstViewController: UIViewController, UITableViewDelegate {
         let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
         cell.textLabel?.text = todoList[indexPath.row]
         return cell
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            todoList.removeAtIndex(indexPath.row)
+            NSUserDefaults.standardUserDefaults().setObject(todoList, forKey: "todoList")
+            todoListTable.reloadData()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
